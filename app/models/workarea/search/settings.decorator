@@ -1,0 +1,8 @@
+module Workarea
+  decorate Search::Settings, with: 'swatches' do
+    decorated do
+      field :swatch_facets, type: Array, default: []
+      list_field :swatch_facets
+    end
+  end
+end

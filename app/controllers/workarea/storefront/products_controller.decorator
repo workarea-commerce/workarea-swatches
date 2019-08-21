@@ -1,0 +1,12 @@
+module Workarea
+  decorate Storefront::ProductsController, with: :swatches do
+    def summary
+      @product = Storefront::ProductViewModel.wrap(
+        Catalog::Product.find_by(slug: params[:id]),
+        view_model_options
+      )
+
+      render partial: 'summary', locals: { product: @product }
+    end
+  end
+end

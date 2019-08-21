@@ -1,0 +1,7 @@
+module Workarea
+  decorate Search::CategoryBrowse, with: 'swatches' do
+    decorated do
+      include Search::SwatchedFacets
+    end
+  end
+end

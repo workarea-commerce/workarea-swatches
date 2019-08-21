@@ -1,0 +1,7 @@
+module Workarea
+  decorate Catalog::Product, with: 'swatches' do
+    decorated do
+      embeds_many :swatches, class_name: 'Workarea::Catalog::ProductSwatch'
+    end
+  end
+end

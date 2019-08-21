@@ -1,0 +1,54 @@
+/*------------------------------------*\
+    #SWATCH-OPTIONS
+\*------------------------------------*/
+
+$swatch-options-outline: 1px solid $light-gray !default;
+$swatch-options-selected-outline:  1px solid $highlight-color !default;
+
+.swatch-options {}
+
+.swatch-options--small {}
+
+    .swatch-options__label {
+        margin: 0;
+    }
+
+    .swatch-options__group {
+        @extend %inline-list;
+    }
+
+        .swatch-options__swatch {
+            position: relative;
+            margin: 0 0 $spacing-unit;
+            width:  44px;
+            height: 44px;
+            outline: $swatch-options-outline;
+
+            & + & {
+                margin-left: $spacing-unit;
+            }
+
+            .swatch-options--small & {
+                margin-top:    $spacing-unit;
+                margin-bottom: 0;
+                width:  22px;
+                height: 22px;
+            }
+        }
+
+        .swatch-options__swatch--selected {
+            outline: $swatch-options-selected-outline;
+        }
+
+            .swatch-options__swatch-button,
+            .swatch-options__swatch-button-image,
+            .swatch-options__swatch-button-text {
+                display: block;
+                position: absolute;
+                top:    0;
+                right:  0;
+                bottom: 0;
+                left:   0;
+            }
+
+            .swatch-options__swatch-name {}

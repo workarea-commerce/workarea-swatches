@@ -1,0 +1,52 @@
+en:
+  workarea:
+    admin:
+      activities:
+        catalog_product_swatch_create_html: added a swatch to %{name}
+        catalog_product_swatch_destroy_html: removed a swatch from %{name}
+        catalog_category_create_html: created the %{name} swatch
+        catalog_category_destroy_html: removed the %{name} swatch
+      fields:
+        color: Color
+      catalog_product_swatches:
+        edit:
+          edit_swatch_for: Edit swatch for %{product}
+          edit_swatch: Edit Swatch
+          swatch: Swatch
+          without_options: Without options
+        flash_messages:
+          saved: Your swatch has been saved
+          removed: Your swatch has been removed
+          error: There was an error saving your changes
+        index:
+          add_new_swatch: Add New Swatch
+          create_swatch: Create Swatch
+          delete_confirmation: Are you sure you want to delete this swatch?
+          no_product_swatches: No product swatches
+          product_swatches: Product Swatches
+          swatch: Swatch
+          swatches_for: Swatches for %{product}
+          swatches: Swatches
+          without_options: Without options
+      catalog_products:
+        cards:
+          swatches:
+            add_swatches: Add Swatches
+            description: Override or add custom swatches for this product to show on the swatches detail page template.
+            manage_swatches: Manage Swatches
+            title: Swatches
+      catalog_swatches:
+        flash_messages:
+          saved: Your swatch has been saved
+          removed: Your swatch has been removed
+          error: There was an error saving your changes
+        index:
+          page_title: Swatches
+          description: Swatches are used by the swatches product template and can be setup as filters for categories and search.
+          no_swatches: No swatches setup yet, add one below!
+          add_new: Add New
+          manage_filters: Manage Filters
+          swatch_filters: Swatch Filters
+          swatch_facets_info: Filters in this list will will show their values with swatches when displayed on category browse pages and search results.
+        primary_navigation:
+          swatches: Swatches

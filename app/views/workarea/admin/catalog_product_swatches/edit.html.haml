@@ -1,0 +1,52 @@
+- @page_title = t('workarea.admin.catalog_product_swatches.edit.edit_swatch_for', product: @product.name)
+
+.product-images.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to_index_for(@product)
+          %h1= link_to @product.name, url_for(@product)
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@product)
+
+  .view__container
+    = render_cards_for(@product, :swatches)
+
+  .view__container.view__container--narrow
+    .section
+      .product-images__option-group
+        .product-images__option
+          .product-images__option-header
+            .product-images__option-title= @swatch.option.present? ? "#{@swatch.option.titleize}  #{t('workarea.admin.catalog_product_swatches.edit.swatch')}" : t('workarea.admin.catalog_product_swatches.edit.without_options')
+
+          .product-images__image-group
+            .product-images__image
+              .product-images__image-summary
+                .product-images__image-summary-container= image_tag @swatch.image.process(:swatch).url, alt: "#{@swatch.option} #{t('workarea.admin.catalog_product_swatches.edit.swatch')}", id: @swatch.option.parameterize, class: 'product-images__image-summary-image'
+
+    .section
+      %h2= t('workarea.admin.catalog_product_swatches.edit.edit_swatch')
+
+      = form_tag catalog_product_swatch_path(@product, @swatch), method: :patch, multipart: true do
+        .property
+          = label_tag 'swatch_image', t('workarea.admin.fields.image'), class: 'property__name'
+          = file_field_tag 'swatch[image]', value: @swatch.url
+
+        .property
+          = label_tag 'swatch_option',  t('workarea.admin.fields.option'), class: 'property__name'
+          = text_field_tag 'swatch[option]', @swatch.option, class: 'text-box text-box--medium', data: { autocomplete_field: options_catalog_product_images_path(@product) }
+
+        = append_partials('admin.product_swatch_fields')
+
+        = append_partials('admin.product_swatches', product: @product)
+
+        .workflow-bar
+          .grid.grid--right.grid--middle
+            .grid__cell.grid__cell--20
+              = link_to t('workarea.admin.form.cancel'), catalog_product_swatches_path(@product), class: 'workflow-bar__button workflow-bar__button--delete'
+            .grid__cell.grid__cell--80
+              .grid.grid--auto.grid--right.grid--middle
+                .grid__cell= button_tag t('workarea.admin.form.save_changes'), value: 'save_product_image', class: 'workflow-bar__button workflow-bar__button--update'

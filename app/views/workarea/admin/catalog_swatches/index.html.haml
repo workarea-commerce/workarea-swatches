@@ -1,0 +1,78 @@
+- @page_title= t('workarea.admin.catalog_swatches.index.page_title')
+
+.view
+  .view__header
+    .grid.grid--center
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to "↑ #{t('workarea.admin.catalog.dashboard_link')}", catalog_dashboards_path, class: 'view__dashboard-button'
+          %h1.heading--no-margin= t('workarea.admin.catalog_swatches.index.page_title')
+          %p= t('workarea.admin.catalog_swatches.index.description')
+
+  .view__container.view__container--narrow
+    .section
+      - if @swatches.blank?
+        %h2= t('workarea.admin.catalog_swatches.index.no_swatches')
+      - else
+        %table.index-table
+          %thead
+            %tr
+              %th= t('workarea.admin.fields.name')
+              %th= t('workarea.admin.fields.color')
+              %th= t('workarea.admin.fields.image')
+              %th= t('workarea.admin.actions.remove')
+          %tbody
+            - @swatches.each do |swatch|
+              %tr.index-table__row
+                %td= swatch.name
+                %td
+                  = form_tag catalog_swatch_path(swatch), method: 'patch' do
+                    = color_field_tag 'swatch[hex]', swatch.hex, class: 'color-picker__input', data: { form_submitting_control: '' }, id: nil
+                %td
+                  = form_tag catalog_swatch_path(swatch), method: 'patch', multipart: true do
+                    = image_tag swatch.image.process(:small).url if swatch.image.present?
+                    = file_field_tag 'swatch[image]', class: 'text-box', data: { form_submitting_control: '' }, id: nil
+                %td
+                  = form_tag catalog_swatch_path(swatch), method: 'delete', class: 'text-button text-button--destroy' do
+                    = button_tag value: 'remove_swatch', class: 'text-button text-button--destroy' do
+                      = inline_svg('workarea/admin/icons/delete.svg', class: 'text-button__icon', title: t('workarea.admin.actions.delete'))
+
+    .section
+      .grid
+        .grid__cell.grid__cell--50
+          %h2= t('workarea.admin.catalog_swatches.index.add_new')
+
+          = form_tag catalog_swatches_path, method: 'post', multipart: true do
+            .grid.grid--auto
+              .grid__cell
+                .property.property--required
+                  = label_tag 'swatch_name', t('workarea.admin.fields.name'), class: 'property__name'
+                  = text_field_tag 'swatch[name]', params.dig(:swatch, :name), class: 'text-box text-box--medium', required: true, id: nil
+              .grid__cell
+                .property
+                  = label_tag 'swatch_hex', t('workarea.admin.fields.color'), class: 'property__name'
+                  = color_field_tag 'swatch[hex]', params.dig(:swatch, :hex), class: 'color-picker__input', id: nil
+              .grid__cell
+                .property
+                  = label_tag 'swatch_image', t('workarea.admin.fields.image'), class: 'property__name'
+                  = file_field_tag 'swatch[image]', class: 'text-box text-box--large', id: nil
+
+            = button_tag t('workarea.admin.actions.save'), value: 'save_new_swatch', class: 'button'
+
+        .grid__cell.grid__cell--50
+          %h2= t('workarea.admin.catalog_swatches.index.manage_filters')
+
+          = form_tag search_settings_path, method: 'patch', data: { unsaved_changes: '' } do
+            = hidden_field_tag :return_to, catalog_swatches_path
+            .property
+              = label_tag 'swatch_facets_list', class: 'property__name' do
+                = t('workarea.admin.catalog_swatches.index.swatch_filters')
+                = link_to '#swatch-facets-info', data: { tooltip: '' } do
+                  = inline_svg('workarea/admin/icons/help.svg', class: 'svg-icon svg-icon--small svg-icon--blue', title: t('workarea.admin.catalog_swatches.index.swatch_filters'))
+
+              = text_field_tag 'settings[swatch_facets_list]', @search_settings.swatch_facets_list, class: 'text-box'
+              %span.property__note= t('workarea.admin.form.csv_field_note')
+              #swatch-facets-info.tooltip-content
+                %p= t('workarea.admin.catalog_swatches.index.swatch_facets_info')
+
+            = button_tag t('workarea.admin.actions.save'), value: 'save_settings', class: 'button'

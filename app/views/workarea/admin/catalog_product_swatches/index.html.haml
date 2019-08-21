@@ -1,0 +1,65 @@
+- @page_title = t('workarea.admin.catalog_product_swatches.index.swatches_for', product: @product.name)
+.product-images.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to_index_for(@product)
+          %h1= link_to @product.name, url_for(@product)
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@product)
+
+  .view__container
+    = render_cards_for(@product, :swatches)
+
+  .view__container.view__container--narrow
+    .section
+      - if @product.swatches.blank?
+        %h2.align-center= t('workarea.admin.catalog_swatches.index.no_swatches')
+      - else
+        %table.index-table
+          %thead
+            %tr
+              %th= t('workarea.admin.fields.name')
+              %th= t('workarea.admin.fields.color')
+              %th= t('workarea.admin.fields.image')
+              %th= t('workarea.admin.actions.remove')
+          %tbody
+            - @product.swatches.each do |swatch|
+              %tr.index-table__row
+                %td= swatch.name
+                %td
+                  = form_tag catalog_product_swatch_path(@product, swatch), method: 'patch' do
+                    = color_field_tag 'swatch[hex]', swatch.hex, class: 'color-picker__input', data: { form_submitting_control: '' }, id: nil
+                %td
+                  = form_tag catalog_product_swatch_path(@product, swatch), method: 'patch', multipart: true do
+                    = image_tag swatch.image.process(:small).url if swatch.image.present?
+                    = file_field_tag 'swatch[image]', class: 'text-box', data: { form_submitting_control: '' }, id: nil
+                %td
+                  = form_tag catalog_product_swatch_path(@product, swatch), method: 'delete', class: 'text-button text-button--destroy' do
+                    = button_tag value: 'remove_swatch', class: 'text-button text-button--destroy' do
+                      = inline_svg('workarea/admin/icons/delete.svg', class: 'text-button__icon', title: t('workarea.admin.actions.delete'))
+
+    .section
+      .grid.grid--center
+        .grid__cell.grid__cell--50
+          %h2.align-center= t('workarea.admin.catalog_swatches.index.add_new')
+
+          = form_tag catalog_product_swatches_path(@product), method: 'post', multipart: true do
+            .grid.grid--auto
+              .grid__cell
+                .property.property--required
+                  = label_tag 'swatch_name', t('workarea.admin.fields.name'), class: 'property__name'
+                  = text_field_tag 'swatch[name]', params.dig(:swatch, :name), class: 'text-box text-box--medium', required: true, id: nil
+              .grid__cell
+                .property
+                  = label_tag 'swatch_hex', t('workarea.admin.fields.color'), class: 'property__name'
+                  = color_field_tag 'swatch[hex]', params.dig(:swatch, :hex), class: 'color-picker__input', id: nil
+              .grid__cell
+                .property
+                  = label_tag 'swatch_image', t('workarea.admin.fields.image'), class: 'property__name'
+                  = file_field_tag 'swatch[image]', class: 'text-box text-box--large', id: nil
+
+            = button_tag t('workarea.admin.actions.save'), value: 'save_new_swatch', class: 'button'

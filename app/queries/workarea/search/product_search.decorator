@@ -1,0 +1,7 @@
+module Workarea
+  decorate Search::ProductSearch, with: 'swatches' do
+    decorated do
+      include Search::SwatchedFacets
+    end
+  end
+end

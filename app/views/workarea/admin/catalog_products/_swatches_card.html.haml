@@ -1,0 +1,27 @@
+.grid__cell
+  .card{ class: card_classes(:swatches, local_assigns[:active]) }
+    = link_to catalog_product_swatches_path(model), class: 'card__header' do
+      %span.card__header-text= t('workarea.admin.catalog_products.cards.swatches.title')
+      = inline_svg 'workarea/admin/icons/images.svg', class: 'card__icon'
+
+    - if local_assigns[:active].blank?
+      .card__body
+        - if model.swatches.empty?
+          %p= t('workarea.admin.catalog_products.cards.swatches.description')
+          = link_to catalog_product_swatches_path(model), class: 'card__button' do
+            %span.button.button--small= t('workarea.admin.catalog_products.cards.swatches.add_swatches')
+        - else
+          %ul.grid
+            - model.swatches.take(4).each_with_index do |swatch, i|
+              %li.grid__cell.grid__cell--50
+                - if i == 3 && model.swatches.size > 4
+                  .card__photo-box
+                    %span.card__photo +#{model.swatches.size - i}
+                - elsif swatch.image.present?
+                  .card__photo-box
+                    = image_tag swatch.image.process(:small_thumb).url, alt: swatch.name, class: 'card__photo'
+                - else
+                  .card__photo-box{ style: "background-color: #{swatch.hex};" }
+
+          = link_to catalog_product_swatches_path(model), class: 'card__button' do
+            %span.button.button--small= t('workarea.admin.catalog_products.cards.swatches.manage_swatches')
