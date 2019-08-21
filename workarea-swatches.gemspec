@@ -8,12 +8,14 @@ Gem::Specification.new do |s|
   s.name        = 'workarea-swatches'
   s.version     = Workarea::Swatches::VERSION
   s.authors     = ['Ben Crouse']
-  s.email       = ['bcrouse@weblinc.com']
+  s.email       = ['bcrouse@workarea.com']
   s.homepage    = 'https://github.com/workarea-commerce/workarea-swatches'
-  s.summary     = 'Adds swatching to the Workarea platform'
-  s.description = 'Provides global and custom swatches for products'
+  s.summary     = 'Adds swatching to the Workarea Commerce Platform'
+  s.description = 'Provides global and custom swatches for products on the Workarea Commerce Platform'
 
   s.files = `git ls-files`.split("\n")
 
   s.license = 'Business Software License'
+
+  s.add_dependency 'workarea', '~> 3.x', '>= 3.5.x'
 end
