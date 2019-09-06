@@ -17,5 +17,3 @@ test/dummy/log/*.log
 test/dummy/tmp
 node_modules
 test/reports
-package.json
-yarn.lock
