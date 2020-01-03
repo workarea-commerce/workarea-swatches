@@ -42,6 +42,7 @@ task :release do
   system 'git push origin HEAD --follow-tags'
 
   system 'gem build workarea-swatches.gemspec'
+  system "gem push workarea-swatches-#{Workarea::Swatches::VERSION}.gem"
   system "gem push workarea-swatches-#{Workarea::Swatches::VERSION}.gem --host #{host}"
   system "rm workarea-swatches-#{Workarea::Swatches::VERSION}.gem"
 end
