@@ -6,12 +6,6 @@ Workarea Swatches 1.0.6 (2020-06-17)
 
     Ben Crouse
 
-*   Initial commit on master
-
-
-    Curt Howard
-
-
 
 Workarea Swatches 1.0.5 (2019-08-21)
 --------------------------------------------------------------------------------
