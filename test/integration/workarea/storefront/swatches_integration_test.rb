@@ -24,7 +24,7 @@ module Workarea
         create_swatch(name: 'Blue', hex: '0000ff')
         create_swatch(name: 'Green', image: product_image_file)
 
-        Search::Settings.current.update_attributes!(swatch_facets: ['Color'])
+        Search::Settings.current.update!(swatch_facets: ['Color'])
       end
 
       def test_showing_swatch_filters_on_search
