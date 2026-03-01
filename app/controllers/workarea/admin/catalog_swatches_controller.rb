@@ -22,7 +22,7 @@ module Workarea
       def update
         @swatch = Catalog::Swatch.find(params[:id])
 
-        if @swatch.update_attributes(params[:swatch])
+        if @swatch.update(params[:swatch])
           flash[:success] = t('workarea.admin.catalog_swatches.flash_messages.saved')
           redirect_to catalog_swatches_path
         else

@@ -31,7 +31,7 @@ module Workarea
         Catalog::Swatch.create!(name: name.to_s.titleize, hex: hex)
       end
 
-      Search::Settings.current.update_attributes!(swatch_facets: ['Color'])
+      Search::Settings.current.update!(swatch_facets: ['Color'])
     end
   end
 end
